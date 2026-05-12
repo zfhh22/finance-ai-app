@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laporan Keuangan Modern</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins', sans-serif;
+    }
+
+    body{
+      background: linear-gradient(135deg,#0f172a,#1e293b,#334155);
+      min-height:100vh;
+      padding:30px;
+      color:white;
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:'';
+      position:fixed;
+      width:350px;
+      height:350px;
+      background:rgba(0,123,255,0.2);
+      border-radius:50%;
+      top:-100px;
+      left:-100px;
+      filter:blur(70px);
+    }
+
+    body::after{
+      content:'';
+      position:fixed;
+      width:300px;
+      height:300px;
+      background:rgba(0,255,170,0.15);
+      border-radius:50%;
+      bottom:-80px;
+      right:-80px;
+      filter:blur(70px);
+    }
+
+    .container{
+      max-width:1000px;
+      margin:auto;
+      background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(15px);
+      border:1px solid rgba(255,255,255,0.15);
+      border-radius:25px;
+      padding:30px;
+      box-shadow:0 10px 40px rgba(0,0,0,0.4);
+      animation:fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn{
+      from{
+        opacity:0;
+        transform:translateY(20px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    .header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:30px;
+      flex-wrap:wrap;
+      gap:20px;
+    }
+
+    .title h1{
+      font-size:32px;
+      font-weight:700;
+      margin-bottom:5px;
+    }
+
+    .title p{
+      color:#cbd5e1;
+      font-size:14px;
+    }
+
+    .header img{
+      width:130px;
+      animation:float 3s ease-in-out infinite;
+      filter:drop-shadow(0 10px 20px rgba(0,0,0,0.4));
+    }
+
+    @keyframes float{
+      0%,100%{
+        transform:translateY(0px);
+      }
+      50%{
+        transform:translateY(-10px);
+      }
+    }
+
+    .info-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:20px;
+      margin-bottom:25px;
+    }
+
+    .card{
+      background:rgba(255,255,255,0.08);
+      border-radius:18px;
+      padding:20px;
+      border:1px solid rgba(255,255,255,0.08);
+      transition:0.3s;
+    }
+
+    .card:hover{
+      transform:translateY(-5px);
+      box-shadow:0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    label{
+      display:block;
+      margin-bottom:8px;
+      font-weight:500;
+      color:#e2e8f0;
+    }
+
+    input{
+      width:100%;
+      padding:14px;
+      border:none;
+      border-radius:12px;
+      background:rgba(255,255,255,0.12);
+      color:white;
+      outline:none;
+      font-size:14px;
+      transition:0.3s;
+    }
+
+    input:focus{
+      border:1px solid #38bdf8;
+      box-shadow:0 0 10px rgba(56,189,248,0.5);
+    }
+
+    input::placeholder{
+      color:#cbd5e1;
+    }
+
+    .input-section{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:15px;
+      margin-top:20px;
+    }
+
+    .btn{
+      width:100%;
+      margin-top:20px;
+      padding:15px;
+      border:none;
+      border-radius:15px;
+      background:linear-gradient(135deg,#38bdf8,#2563eb);
+      color:white;
+      font-size:16px;
+      font-weight:600;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    .btn:hover{
+      transform:scale(1.02);
+      box-shadow:0 10px 20px rgba(37,99,235,0.4);
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:25px;
+      overflow:hidden;
+      border-radius:15px;
+      background:rgba(255,255,255,0.05);
+    }
+
+    th{
+      background:rgba(59,130,246,0.9);
+      padding:15px;
+      color:white;
+      font-size:14px;
+    }
+
+    td{
+      padding:14px;
+      text-align:center;
+      border-bottom:1px solid rgba(255,255,255,0.08);
+      color:#f8fafc;
+    }
+
+    tr:hover{
+      background:rgba(255,255,255,0.05);
+    }
+
+    .income{
+      background:rgba(34,197,94,0.15);
+    }
+
+    .expense{
+      background:rgba(239,68,68,0.15);
+    }
+
+    .summary{
+      margin-top:30px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:20px;
+    }
+
+    .summary-card{
+      padding:25px;
+      border-radius:20px;
+      text-align:center;
+      backdrop-filter:blur(10px);
+      transition:0.3s;
+    }
+
+    .summary-card:hover{
+      transform:translateY(-5px);
+    }
+
+    .masuk{
+      background:linear-gradient(135deg,rgba(34,197,94,0.3),rgba(22,163,74,0.2));
+    }
+
+    .keluar{
+      background:linear-gradient(135deg,rgba(239,68,68,0.3),rgba(185,28,28,0.2));
+    }
+
+    .saldo{
+      background:linear-gradient(135deg,rgba(59,130,246,0.3),rgba(37,99,235,0.2));
+    }
+
+    .summary-card h3{
+      margin-bottom:10px;
+      font-size:18px;
+    }
+
+    .summary-card p{
+      font-size:24px;
+      font-weight:700;
+    }
+
+    .footer{
+      text-align:center;
+      margin-top:30px;
+      color:#cbd5e1;
+      font-size:13px;
+    }
+
+    @media(max-width:768px){
+      .info-grid{
+        grid-template-columns:1fr;
+      }
+
+      .header{
+        justify-content:center;
+        text-align:center;
+      }
+
+      .title h1{
+        font-size:26px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <div class="title">
+      <h1>💰 Laporan Keuangan</h1>
+      <p>Kelola pemasukan dan pengeluaran dengan tampilan modern</p>
+      <p style="margin-top:8px; font-size:14px; color:#93c5fd; font-weight:600;">
+        Account : Raihandhika
+      </p>
+    </div>
+
+    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135706.png" alt="Finance">
+  </div>
+
+  <div class="info-grid">
+    <div class="card">
+      <label>Nama</label>
+      <input type="text" id="nama" placeholder="Masukkan nama anda">
+    </div>
+
+    <div class="card">
+      <label>Tanggal</label>
+      <input type="date" id="tanggal">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="input-section">
+
+      <div>
+        <label>Keterangan</label>
+        <input type="text" id="keterangan" placeholder="Contoh: Gaji Bulanan">
+      </div>
+
+      <div>
+        <label>Jenis</label>
+        <input type="text" id="jenis" placeholder="Pemasukan / Pengeluaran">
+      </div>
+
+      <div>
+        <label>Jumlah</label>
+        <input type="number" id="jumlah" placeholder="Masukkan nominal uang">
+      </div>
+
+    </div>
+
+    <button class="btn" onclick="tambahData()">
+      + Tambah Data Keuangan
+    </button>
+  </div>
+
+  <table id="tabelKeuangan">
+    <tr>
+      <th>No</th>
+      <th>Keterangan</th>
+      <th>Jenis</th>
+      <th>Jumlah</th>
+    </tr>
+  </table>
+
+  <div class="summary">
+
+    <div class="summary-card masuk">
+      <h3>Total Pemasukan</h3>
+      <p id="totalMasuk">Rp 0</p>
+    </div>
+
+    <div class="summary-card keluar">
+      <h3>Total Pengeluaran</h3>
+      <p id="totalKeluar">Rp 0</p>
+    </div>
+
+    <div class="summary-card saldo">
+      <h3>Sisa Saldo</h3>
+      <p id="saldo">Rp 0</p>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    Dibuat dengan tampilan modern ✨
+  </div>
+
+</div>
+
+<script>
+
+let nomor = 1;
+let pemasukan = 0;
+let pengeluaran = 0;
+
+function tambahData(){
+
+  const keterangan = document.getElementById("keterangan").value;
+  const jenis = document.getElementById("jenis").value;
+  const jumlah = parseInt(document.getElementById("jumlah").value);
+
+  if(keterangan === "" || jenis === "" || isNaN(jumlah)){
+    alert("Isi semua data terlebih dahulu!");
+    return;
+  }
+
+  const tabel = document.getElementById("tabelKeuangan");
+  const row = tabel.insertRow();
+
+  if(jenis.toLowerCase() === "pemasukan"){
+    row.className = "income";
+    pemasukan += jumlah;
+  }else{
+    row.className = "expense";
+    pengeluaran += jumlah;
+  }
+
+  row.innerHTML = `
+    <td>${nomor++}</td>
+    <td>${keterangan}</td>
+    <td>${jenis}</td>
+    <td>Rp ${jumlah.toLocaleString('id-ID')}</td>
+  `;
+
+  document.getElementById("totalMasuk").innerHTML =
+    "Rp " + pemasukan.toLocaleString('id-ID');
+
+  document.getElementById("totalKeluar").innerHTML =
+    "Rp " + pengeluaran.toLocaleString('id-ID');
+
+  document.getElementById("saldo").innerHTML =
+    "Rp " + (pemasukan - pengeluaran).toLocaleString('id-ID');
+
+  document.getElementById("keterangan").value = "";
+  document.getElementById("jenis").value = "";
+  document.getElementById("jumlah").value = "";
+}
+
+</script>
+
+</body>
+</html>
